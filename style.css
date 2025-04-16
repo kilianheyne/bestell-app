@@ -19,7 +19,113 @@ header{
         width: 11%;
     }
 }
+body {
+    h1{
+        font-size: 42px;
+        margin-bottom: 1dvh;
+    }
+    h2{
+        margin-bottom: 2dvh;
+    
+    }
+}
+
 
 main{
     display: flex;
+    flex-grow: 1;
+
+    #main-content{
+        width: calc(100% - 344px);
+        padding: 16px;
+
+        #order-place{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: end;
+            align-items: left;
+            margin-bottom: 2dvh;
+
+            #order-place-img{
+                background: url(./assets/imgs/restaurant-header.jpg);
+                height: 35dvh;
+                background-position: center;
+                margin-bottom: 1dvh;
+                background-size: cover;
+            }
+            #order-place-rating{
+                display: flex;
+                align-items: center;
+
+                span{
+                    color: #ff8c00;
+                    font-size: 18px;
+                    margin-left: 8px;
+                }
+            }
+            #peb-logo{
+                position: absolute;
+                border-radius: 50%;
+                box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 15px;
+                width: 150px;
+                bottom: 30px;
+                right: 45%;
+
+            }
+        }
+        #category-overview{
+            display: flex;
+            align-items: center;
+            width: 100%;
+            background: #ffcd906a;
+            justify-content: space-around;
+            margin-bottom: 1dvh;
+        }
+        #main-courses{
+            #main-courses-header{
+                background: url(./assets/imgs/main-course-header.jpg);
+                background-size: cover;
+                height: 20dvh;
+                background-position: 50% 40%;
+                margin-bottom: 1dvh;
+            }
+            .dish-cart{
+                margin-bottom: 3dvh;
+                box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 15px;
+                border-radius: 11px;
+                padding: 1%;
+                .dish-info{
+                    display: flex;
+                    flex-direction: column;
+                    gap: 16px;
+
+                    b{
+                        color:#ff8c00;
+                    }
+                    
+                }
+                .add-button{
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    color: #ff8c00;
+                    font-size: 36px;
+                    font-weight: bold;
+                    border: solid;
+                    height: 50px;
+                    width: 50px;
+                    display: flex;
+                    justify-content: center;
+                    border-top-right-radius: 11px;
+                }
+            }
+        }
+    }
+
+    #ordering-content{
+        width: 344px;
+        flex-grow: 1;
+        padding: 16px;
+    }
 }

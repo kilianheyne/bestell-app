@@ -40,19 +40,18 @@ function renderMainCourse() {
 }
 
 function returnMainDishes(dishIndex) {
-    return `    <div>
-                    <div>
+    return `    <div class="dish-cart">
+                    <div class="dish-info">
                         <h3>${mainCourse[dishIndex].name}</h3>
                         <p>${mainCourse[dishIndex].description}</p>
                         <b>${properPrice(dishIndex)}</b>
                     </div>
-                    <div>+</div>
+                    <div class="add-button">+</div>
                 </div>`;
 }
 
 function properPrice(priceIndex){
     const priceRef = mainCourse[priceIndex].price;
-    const newPrice = priceRef.toFixed(2);
-    newPrice.replace('.', ',');
+    const newPrice = priceRef.toFixed(2).replace('.', ',');
     return newPrice + ' ' + '€';
 }
