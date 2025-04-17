@@ -70,9 +70,10 @@ function addToBasket(clickInd) {
         increaseAmount(indexCheck);
     }else{
         orderBasket.push(mainCourse[clickInd]);
+        addAmountToBasket(clickInd);
+        renderOrderBasket();
     }
-    console.log(orderBasket);
-    renderOrderBasket();
+    totalPricePerItem(clickInd);
 }
 
 function renderOrderBasket() {
@@ -80,8 +81,10 @@ function renderOrderBasket() {
     orderRef.innerHTML = "";
 
     for (orderInd = 0; orderInd < orderBasket.length; orderInd++){
-        addAmountToBasket(orderInd);
         orderRef.innerHTML += returnOrderItem(orderInd);
+    }
+    for (priceInd = 0; priceInd < orderBasket.length; priceInd++){
+        totalPricePerItem(priceInd);
     }
 }
 
@@ -92,7 +95,7 @@ function returnOrderItem(itemInd) {
                         <div class="amount-btn" onclick="decreaseAmount(${itemInd})">-</div>
                         <div id="item-amount-${itemInd}">${orderBasket[itemInd].amount}x</div>
                         <div class="amount-btn" onclick="increaseAmount(${itemInd})">+</div>
-                        <div>Summe Preis</div>
+                        <div id="items-price-${itemInd}"></div>
                         <img src="./assets/icons/trash-icon.png" alt="Löschen">
                     </div>
             </div>`;
@@ -105,7 +108,7 @@ function addAmountToBasket(amountInd) {
 function increaseAmount(incInd) {
     orderBasket[incInd].amount++;
 
-    const itemAmountRef = document.getElementById("item-amount");
+    const itemAmountRef = document.getElementById(`item-amount-${incInd}`);
     itemAmountRef.innerHTML = orderBasket[incInd].amount + "x";
 }
 
@@ -113,7 +116,15 @@ function decreaseAmount(decInd) {
     if (orderBasket[decInd].amount > 0) {
         orderBasket[decInd].amount -= 1;
 
-        const itemAmountRef = document.getElementById("item-amount");
+        const itemAmountRef = document.getElementById(`item-amount-${decInd}`);
         itemAmountRef.innerHTML = orderBasket[decInd].amount + "x";
     }
+}
+
+function totalPricePerItem(totalPriceInd){
+    const idRef = document.getElementById(`items-price-${totalPriceInd}`);
+    const priceRef = orderBasket[totalPriceInd].price;
+    const newPrice = priceRef * orderBasket[totalPriceInd].amount;
+    const finalPrice = newPrice.toFixed(2).replace('.', ',');
+    idRef.innerHTML = finalPrice + " " + "€";
 }
