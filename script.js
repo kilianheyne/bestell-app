@@ -96,7 +96,7 @@ function returnOrderItem(itemInd) {
                         <div id="item-amount-${itemInd}">${orderBasket[itemInd].amount}x</div>
                         <div class="amount-btn" onclick="increaseAmount(${itemInd})">+</div>
                         <div id="items-price-${itemInd}"></div>
-                        <img src="./assets/icons/trash-icon.png" alt="Löschen">
+                        <img src="./assets/icons/trash-icon.png" alt="Löschen" onclick="deleteItem(${itemInd})">
                     </div>
             </div>`;
 }
@@ -127,4 +127,9 @@ function totalPricePerItem(totalPriceInd){
     const newPrice = priceRef * orderBasket[totalPriceInd].amount;
     const finalPrice = newPrice.toFixed(2).replace('.', ',');
     idRef.innerHTML = finalPrice + " " + "€";
+}
+
+function deleteItem(arrInd){
+    orderBasket.splice(arrInd, 1);
+    renderOrderBasket();
 }
