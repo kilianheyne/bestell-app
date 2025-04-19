@@ -36,7 +36,7 @@ const mainCourse = [
     },
 ];
 
-const orderBasket = [];
+let orderBasket = [];
 
 function renderMainCourse() {
     const mainRef = document.getElementById("main-courses");
@@ -72,10 +72,13 @@ function addToBasket(clickInd) {
         increaseAmount(indexCheck);
     } else {
         orderBasket.push(mainCourse[clickInd]);
-        addAmountToBasket(clickInd);
+        
+        const newIndex = orderBasket.length - 1;
+        addAmountToBasket(newIndex);
         renderOrderBasket();
     }
-    totalPricePerItem(clickInd);
+    const newIndex = orderBasket.length - 1;
+    totalPricePerItem(newIndex);
     showSubtotalSum();
 }
 
@@ -117,11 +120,16 @@ function increaseAmount(incInd) {
 }
 
 function decreaseAmount(decInd) {
-    if (orderBasket[decInd].amount > 0) {
+    if(orderBasket[decInd].amount === 1){
+        deleteItem(decInd);
+    }else{
         orderBasket[decInd].amount -= 1;
 
         const itemAmountRef = document.getElementById(`item-amount-${decInd}`);
         itemAmountRef.innerHTML = orderBasket[decInd].amount + "x";
+
+        totalPricePerItem(decInd);
+        showSubtotalSum();
     }
 }
 
@@ -161,4 +169,16 @@ function showTotalSum() {
     const total = subtotal + deliveryCost;
     const finalTotal = total.toFixed(2).replace(".", ",") + " €";
     totalRef.innerHTML = finalTotal;
+}
+
+function resetOrder(){
+    orderBasket = [];
+
+    const orderRef = document.getElementById("order-basket");
+    orderRef.innerHTML = "";
+
+    showSubtotalSum();
+
+    const btnRef = document.getElementById('order-btn');
+    btnRef.innerHTML = "Thanks for the money, honey! 💸";
 }
