@@ -37,26 +37,28 @@
             </div>
         </section>
         <section id="ordering-content">
-            <h2>Warenkorb</h2>
-            <div id="order-basket">
-                
-            </div>
-            <div id="order-sums">
-                <div class="flexBetween">
-                    <span>Zwischensumme</span>
-                    <span id="subtotal-sum"></span>
+            <div id="sticky-basket">
+                <h2>Warenkorb</h2>
+                <div id="order-basket">
+                    
                 </div>
-                <div class="flexBetween">
-                    <span>Lieferkosten</span>
-                    <span>3,99 €</span>
+                <div id="order-sums">
+                    <div class="flex-between">
+                        <span>Zwischensumme</span>
+                        <span id="subtotal-sum"></span>
+                    </div>
+                    <div class="flex-between">
+                        <span>Lieferkosten</span>
+                        <span>3,99 €</span>
+                    </div>
+                    <div class="flex-between">
+                        <b>Gesamt</b>
+                        <b id="total-sum"></b>
+                    </div>
                 </div>
-                <div class="flexBetween">
-                    <b>Gesamt</b>
-                    <b id="total-sum"></b>
+                <div>
+                    <button onclick="resetOrder()" id="order-btn">Jetzt bestellen!</button>
                 </div>
-            </div>
-            <div>
-                <button onclick="resetOrder()" id="order-btn">Jetzt bestellen!</button>
             </div>
         </section>
     </main>

@@ -1,45 +1,53 @@
 @import url(https://fonts.bunny.net/css?family=work-sans:400,700);
 
-*{
-    position: 0; 
-    margin: 0; 
+* {
+    position: 0;
+    margin: 0;
     box-sizing: border-box;
     text-decoration: none;
     scroll-behavior: smooth;
     position: relative;
-    font-family: 'Work Sans', sans-serif;
+    font-family: "Work Sans", sans-serif;
 }
-header{
+header {
     background: #ff8c00;
-    height: 8dvh;
+    height: 10dvh;
+    min-height: 80px;
     width: 100%;
-    display: flex; 
+    display: flex;
     align-items: center;
 
-    img{
+    img {
         padding-left: 1%;
-        width: 11%;
+        width: 13%;
+        height: auto;
+        max-height: 68px;
+        object-fit: contain;
     }
 }
 body {
-    h1{
+    h1 {
         font-size: 42px;
         margin-bottom: 1dvh;
     }
-    h2{
+    h2 {
         margin-bottom: 2dvh;
-    
     }
 }
-main{
+.flex-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+main {
     display: flex;
     flex-grow: 1;
 
-    #main-content{
+    #main-content {
         width: calc(100% - 344px);
         padding: 16px;
 
-        #order-place{
+        #order-place {
             width: 100%;
             display: flex;
             flex-direction: column;
@@ -47,34 +55,33 @@ main{
             align-items: left;
             margin-bottom: 2dvh;
 
-            #order-place-img{
+            #order-place-img {
                 background: url(./assets/imgs/restaurant-header.jpg);
                 height: 35dvh;
                 background-position: center;
                 margin-bottom: 1dvh;
                 background-size: cover;
             }
-            #order-place-rating{
+            #order-place-rating {
                 display: flex;
                 align-items: center;
 
-                span{
+                span {
                     color: #ff8c00;
                     font-size: 18px;
                     margin-left: 8px;
                 }
             }
-            #peb-logo{
+            #peb-logo {
                 position: absolute;
                 border-radius: 50%;
                 box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 15px;
                 width: 150px;
                 bottom: 30px;
                 right: 45%;
-
             }
         }
-        #category-overview{
+        #category-overview {
             display: flex;
             align-items: center;
             width: 100%;
@@ -82,30 +89,29 @@ main{
             justify-content: space-around;
             margin-bottom: 1dvh;
         }
-        #main-courses{
-            #main-courses-header{
+        #main-courses {
+            #main-courses-header {
                 background: url(./assets/imgs/main-course-header.jpg);
                 background-size: cover;
                 height: 20dvh;
                 background-position: 50% 40%;
                 margin-bottom: 1dvh;
             }
-            .dish-cart{
+            .dish-cart {
                 margin-bottom: 3dvh;
                 box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 15px;
                 border-radius: 11px;
                 padding: 1%;
-                .dish-info{
+                .dish-info {
                     display: flex;
                     flex-direction: column;
                     gap: 16px;
 
-                    b{
-                        color:#ff8c00;
+                    b {
+                        color: #ff8c00;
                     }
-                    
                 }
-                .add-button{
+                .add-button {
                     position: absolute;
                     top: 0;
                     right: 0;
@@ -119,46 +125,97 @@ main{
                     justify-content: center;
                     border-top-right-radius: 11px;
                 }
+                .add-button:hover {
+                    cursor: pointer;
+                    color: #d27401;
+                    border: solid #d27401;
+                }
+            }
+            .dish-cart:hover {
+                cursor: pointer;
+                background: #ffcd906a;
             }
         }
     }
 
-    #ordering-content{
+    #ordering-content {
         width: 344px;
         flex-grow: 1;
         padding: 16px;
-        
-            h2{
+
+        #sticky-basket {
+            position: sticky;
+            top: 10px;
+            max-height: 80dvh;
+            overflow-y: auto;
+            
+            h2 {
                 text-align: center;
                 border-bottom: solid grey 1px;
             }
 
-        #order-basket{
+            #order-basket {
+                .order-item {
+                    margin-bottom: 3dvh;
 
-            .order-item{
-                margin-bottom: 16px;
-
-                h3{
-                    margin-bottom: 8px;
-                }
-                .order-details{
-                    display: flex;
-                    justify-content: space-around;
-                    align-items: center;
-
-                    .amount-btn{
-                        color: #ff8c00;
-                        font-weight: bold;
-                        border: solid 1px #ff8c00;
-                        border-radius: 50%;
-                        width: 18px;
-                        height: 18px;
-                        display: flex; 
-                        justify-content: center;
+                    h3 {
+                        margin-bottom: 8px;
+                    }
+                    .order-details {
+                        display: flex;
+                        justify-content: space-around;
                         align-items: center;
+
+                        .amount-btn {
+                            color: #ff8c00;
+                            font-weight: bold;
+                            border: solid 1px #ff8c00;
+                            border-radius: 50%;
+                            width: 18px;
+                            height: 18px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                        }
+                        .amount-btn:hover {
+                            cursor: pointer;
+                            color: #d27401;
+                            border: solid 1px #d27401;
+                        }
+                        img:hover {
+                            cursor: pointer;
+                        }
                     }
                 }
             }
+            #order-sums {
+                margin-bottom: 3dvh;
+            }
+            #order-sums:hover {
+                cursor: default;
+            }
         }
     }
+}
+
+#order-btn {
+    width: 100%;
+    border: none;
+    background: #ff8c00;
+    color: white;
+    font-weight: bold;
+    border-radius: 500px;
+    min-height: 48px;
+    font-size: 18px;
+}
+#order-btn:hover {
+    cursor: pointer;
+    background: #d27401;
+}
+.empty-basket {
+    text-align: center;
+    color: #999;
+    font-style: italic;
+    padding: 16px;
+    margin-bottom: 3dvh;
 }

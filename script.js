@@ -44,6 +44,7 @@ function renderMainCourse() {
     for (mainIndex = 0; mainIndex < mainCourse.length; mainIndex++) {
         mainRef.innerHTML += returnMainDishes(mainIndex);
     }
+    renderOrderBasket();
 }
 
 function returnMainDishes(dishIndex) {
@@ -86,13 +87,17 @@ function renderOrderBasket() {
     const orderRef = document.getElementById("order-basket");
     orderRef.innerHTML = "";
 
-    for (orderInd = 0; orderInd < orderBasket.length; orderInd++) {
-        orderRef.innerHTML += returnOrderItem(orderInd);
+    if(orderBasket.length == 0){
+        orderRef.innerHTML = returnEmptyBasketMessage();
+    }else{
+        for (orderInd = 0; orderInd < orderBasket.length; orderInd++) {
+            orderRef.innerHTML += returnOrderItem(orderInd);
+        }
+        for (priceInd = 0; priceInd < orderBasket.length; priceInd++) {
+            totalPricePerItem(priceInd);
+        }
+        showSubtotalSum();
     }
-    for (priceInd = 0; priceInd < orderBasket.length; priceInd++) {
-        totalPricePerItem(priceInd);
-    }
-    showSubtotalSum();
 }
 
 function returnOrderItem(itemInd) {
@@ -181,4 +186,13 @@ function resetOrder(){
 
     const btnRef = document.getElementById('order-btn');
     btnRef.innerHTML = "Thanks for the money, honey! 💸";
+
+    renderOrderBasket();
+}
+
+function returnEmptyBasketMessage(){
+    return `<div class="empty-basket">
+                                Dein Warenkorb ist noch leer 🛒<br>
+                                Füge jetzt ein leckeres Gericht hinzu!
+                            </div>`;
 }
