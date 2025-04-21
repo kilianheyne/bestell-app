@@ -45,6 +45,7 @@ function renderMainCourse() {
         mainRef.innerHTML += returnMainDishes(mainIndex);
     }
     renderOrderBasket();
+    renderRWDOrderBasket()
 }
 
 function returnMainDishes(dishIndex) {
@@ -73,23 +74,42 @@ function addToBasket(clickInd) {
         increaseAmount(indexCheck);
     } else {
         orderBasket.push(mainCourse[clickInd]);
-        
+
         const newIndex = orderBasket.length - 1;
         addAmountToBasket(newIndex);
         renderOrderBasket();
+        renderRWDOrderBasket()
     }
     const newIndex = orderBasket.length - 1;
     totalPricePerItem(newIndex);
     showSubtotalSum();
+    renderResponsiveButton()
 }
 
 function renderOrderBasket() {
     const orderRef = document.getElementById("order-basket");
     orderRef.innerHTML = "";
 
-    if(orderBasket.length == 0){
+    if (orderBasket.length == 0) {
         orderRef.innerHTML = returnEmptyBasketMessage();
-    }else{
+    } else {
+        for (orderInd = 0; orderInd < orderBasket.length; orderInd++) {
+            orderRef.innerHTML += returnOrderItem(orderInd);
+        }
+        for (priceInd = 0; priceInd < orderBasket.length; priceInd++) {
+            totalPricePerItem(priceInd);
+        }
+        showSubtotalSum();
+    }
+}
+
+function renderRWDOrderBasket(){
+    const orderRef = document.getElementById("rwd-order-content");
+    orderRef.innerHTML = "";
+
+    if (orderBasket.length == 0) {
+        orderRef.innerHTML = returnEmptyBasketMessage();
+    } else {
         for (orderInd = 0; orderInd < orderBasket.length; orderInd++) {
             orderRef.innerHTML += returnOrderItem(orderInd);
         }
@@ -125,9 +145,9 @@ function increaseAmount(incInd) {
 }
 
 function decreaseAmount(decInd) {
-    if(orderBasket[decInd].amount === 1){
+    if (orderBasket[decInd].amount === 1) {
         deleteItem(decInd);
-    }else{
+    } else {
         orderBasket[decInd].amount -= 1;
 
         const itemAmountRef = document.getElementById(`item-amount-${decInd}`);
@@ -149,6 +169,7 @@ function totalPricePerItem(totalPriceInd) {
 function deleteItem(arrInd) {
     orderBasket.splice(arrInd, 1);
     renderOrderBasket();
+    renderRWDOrderBasket();
 }
 
 function subtotalSum() {
@@ -161,22 +182,26 @@ function subtotalSum() {
 
 function showSubtotalSum() {
     const subtotalRef = document.getElementById("subtotal-sum");
+    const subtotalRWDRef = document.getElementById('rwd-subtotal-sum')
     const subtotal = subtotalSum();
     const finalSubtotal = subtotal.toFixed(2).replace(".", ",") + " €";
     subtotalRef.innerHTML = finalSubtotal;
+    subtotalRWDRef.innerHTML = finalSubtotal;
     showTotalSum();
 }
 
 function showTotalSum() {
     const totalRef = document.getElementById("total-sum");
+    const totalRWDRef = document.getElementById('rwd-total-sum');
     const subtotal = subtotalSum();
     const deliveryCost = 3.99;
     const total = subtotal + deliveryCost;
     const finalTotal = total.toFixed(2).replace(".", ",") + " €";
     totalRef.innerHTML = finalTotal;
+    totalRWDRef.innerHTML = finalTotal;
 }
 
-function resetOrder(){
+function resetOrder() {
     orderBasket = [];
 
     const orderRef = document.getElementById("order-basket");
@@ -184,15 +209,46 @@ function resetOrder(){
 
     showSubtotalSum();
 
-    const btnRef = document.getElementById('order-btn');
+    const btnRef = document.getElementById("order-btn");
     btnRef.innerHTML = "Thanks for the money, honey! 💸";
 
     renderOrderBasket();
+    renderRWDOrderBasket();
 }
 
-function returnEmptyBasketMessage(){
+function returnEmptyBasketMessage() {
     return `<div class="empty-basket">
                                 Dein Warenkorb ist noch leer 🛒<br>
                                 Füge jetzt ein leckeres Gericht hinzu!
                             </div>`;
+}
+
+function renderResponsiveButton() {
+    const btnRef = document.getElementById("hidden-basket-button");
+    if (orderBasket.length > 0) {
+        btnRef.innerHTML = returnResponsiveButton();
+    }
+
+}
+
+function returnResponsiveButton(){
+    return `<div id="show-basket" onclick="showBasketOverlay()">
+                <img src="./assets/icons/basket-solid-24.png" alt="">
+                <span>Warenkorb anzeigen</span>
+                <b id="hidden-button-sum"></b>
+            </div>`;
+}
+
+function showBasketOverlay(){
+    const basketRef = document.getElementById('rwd-basket-overlay');
+    basketRef.classList.remove('d-none');
+    basketRef.classList.add('d-flex');
+    basketRef.style.zIndex = 1000;
+}
+
+function closeBasketOverlay(){
+    const basketRef = document.getElementById('rwd-basket-overlay');
+    basketRef.classList.remove('d-flex');
+    basketRef.classList.add('d-none');
+    basketRef.style.zIndex = -1;
 }

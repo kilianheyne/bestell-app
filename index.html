@@ -14,6 +14,35 @@
         <img src="./assets/logo/Logo.png" alt="">
     </header>
     <main>
+        <div id="rwd-basket-overlay" class="d-none">
+            <div id="overlay-content">
+                <div>
+                    <h2>Warenkorb</h2>
+                    <div id="close-overlay-btn" onclick="closeBasketOverlay()">&#10006;</div>
+                </div>
+                <div id="rwd-order-content">
+
+                </div>
+                <div id="rwd-order-sums">
+                    <div class="flex-between">
+                        <span>Zwischensumme</span>
+                        <span id="rwd-subtotal-sum"></span>
+                    </div>
+                    <div class="flex-between">
+                        <span>Lieferkosten</span>
+                        <span>3,99 €</span>
+                    </div>
+                    <div class="flex-between">
+                        <b>Gesamt</b>
+                        <b id="rwd-total-sum"></b>
+                    </div>
+                    <div>
+                        <button onclick="resetOrder()" id="rwd-order-btn">Jetzt bestellen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <section id="main-content">
             <div id="order-place">
                 <div id="order-place-img"></div>
@@ -57,12 +86,15 @@
                     </div>
                 </div>
                 <div>
-                    <button onclick="resetOrder()" id="order-btn">Jetzt bestellen!</button>
+                    <button onclick="resetOrder()" id="order-btn">Jetzt bestellen</button>
                 </div>
             </div>
         </section>
+        <div id="hidden-basket-button">
+
+        </div>
     </main>
-    <footer></footer>
+    <footer>Hier könnte ihre Werbung stehen ... oder so.</footer>
     <script src="script.js"></script>
 </body>
 </html>

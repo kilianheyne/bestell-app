@@ -1,7 +1,7 @@
 @import url(https://fonts.bunny.net/css?family=work-sans:400,700);
 
 * {
-    position: 0;
+    padding: 0;
     margin: 0;
     box-sizing: border-box;
     text-decoration: none;
@@ -18,12 +18,22 @@ header {
     align-items: center;
 
     img {
-        padding-left: 1%;
+        padding-left: 16px;
         width: 13%;
         height: auto;
         max-height: 68px;
         object-fit: contain;
     }
+}
+footer {
+    background: #f0eeeb;
+    height: 10dvh;
+    min-height: 80px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
 }
 body {
     h1 {
@@ -38,7 +48,39 @@ body {
     display: flex;
     justify-content: space-between;
 }
+.d-none {
+    display: none;
+}
+.d-flex {
+    display: flex;
+}
 
+#rwd-basket-overlay {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.4);
+    inset: 0;
+    backdrop-filter: blur(2px);
+    justify-content: center;
+    align-items: center;
+
+    @media (min-width: 1024px){
+        display: none;
+    }
+
+    #overlay-content {
+        background: white;
+        width: 90%;
+        max-width: 400px;
+        padding: 20px;
+        border-radius: 12px;
+
+        @media (max-width: 768px) {
+            width: 100%;
+            height: 100%;
+            border-radius: 0;
+        }
+    }
+}
 main {
     display: flex;
     flex-grow: 1;
@@ -46,6 +88,11 @@ main {
     #main-content {
         width: calc(100% - 344px);
         padding: 16px;
+
+        @media (max-width: 1024px) {
+            width: 100%;
+            z-index: 5;
+        }
 
         #order-place {
             width: 100%;
@@ -75,10 +122,11 @@ main {
             #peb-logo {
                 position: absolute;
                 border-radius: 50%;
-                box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 15px;
+                box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+                    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
                 width: 150px;
                 bottom: 30px;
-                right: 45%;
+                left: 45%;
             }
         }
         #category-overview {
@@ -93,7 +141,7 @@ main {
             #main-courses-header {
                 background: url(./assets/imgs/main-course-header.jpg);
                 background-size: cover;
-                height: 20dvh;
+                height: 200px;
                 background-position: 50% 40%;
                 margin-bottom: 1dvh;
             }
@@ -102,6 +150,7 @@ main {
                 box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 15px;
                 border-radius: 11px;
                 padding: 1%;
+
                 .dish-info {
                     display: flex;
                     flex-direction: column;
@@ -123,7 +172,13 @@ main {
                     width: 50px;
                     display: flex;
                     justify-content: center;
+                    align-items: center;
                     border-top-right-radius: 11px;
+
+                    @media (max-width: 1200px) {
+                        height: 40px;
+                        width: 40px;
+                    }
                 }
                 .add-button:hover {
                     cursor: pointer;
@@ -143,12 +198,16 @@ main {
         flex-grow: 1;
         padding: 16px;
 
+        @media (max-width: 1024px) {
+            display: none;
+        }
+
         #sticky-basket {
             position: sticky;
             top: 10px;
             max-height: 80dvh;
             overflow-y: auto;
-            
+
             h2 {
                 text-align: center;
                 border-bottom: solid grey 1px;
@@ -218,4 +277,33 @@ main {
     font-style: italic;
     padding: 16px;
     margin-bottom: 3dvh;
+}
+#hidden-basket-button {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 10;
+    background: white;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+
+    @media (max-width: 1024px) {
+        display: flex;
+    }
+
+    #show-basket {
+        background: #ff8c00;
+        border-radius: 500px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 96.5%;
+        max-height: 48px;
+        font-size: 24px;
+        padding: 24px;
+        color: white;
+        font-weight: bold;
+        margin: 16px;
+    }
 }
