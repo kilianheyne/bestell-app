@@ -1,3 +1,9 @@
+function init(){
+    renderMainCourse();
+    showSubtotalSum();
+    showTotalSum();
+    renderResponsiveButton();
+}
 
 function properPrice(priceIndex) {
     const priceRef = mainCourse[priceIndex].price;
@@ -46,18 +52,26 @@ function decreaseAmount(decInd) {
         deleteItem(decInd);
     } else {
         orderBasket[decInd].amount -= 1;
-        const desktopAmountRef = document.getElementById(`desktop-item-amount-${decInd}`);
-        if (desktopAmountRef) {
-            desktopAmountRef.innerHTML = orderBasket[decInd].amount + "x";
-        }
-        const mobileAmountRef = document.getElementById(`mobile-item-amount-${decInd}`);
-        if (mobileAmountRef) {
-            mobileAmountRef.innerHTML = orderBasket[decInd].amount + "x";
-        }
+        decreaseDesktopAmount(decInd);
+        decreaseMobileAmount(decInd);
         totalPricePerItem(decInd);
         showSubtotalSum();
         dishCounter();
     }
+}
+
+function decreaseDesktopAmount(ddaInd){
+    const desktopAmountRef = document.getElementById(`desktop-item-amount-${ddaInd}`);
+        if (desktopAmountRef) {
+            desktopAmountRef.innerHTML = orderBasket[ddaInd].amount + "x";
+        }
+}
+
+function decreaseMobileAmount(dmaInd){
+    const mobileAmountRef = document.getElementById(`mobile-item-amount-${dmaInd}`);
+        if (mobileAmountRef) {
+            mobileAmountRef.innerHTML = orderBasket[dmaInd].amount + "x";
+        }
 }
 
 function totalPricePerItem(totalPriceInd) {
@@ -111,19 +125,24 @@ function showTotalSum() {
 }
 
 function resetOrder() {
-    orderBasket = [];
-    const orderRef = document.getElementById("order-basket");
-    orderRef.innerHTML = "";
+    if (orderBasket.length > 0){
+        orderBasket = [];
+        const orderRef = document.getElementById("order-basket");
+        orderRef.innerHTML = "";
 
+        resetOrderText()
+        showSubtotalSum();
+        orderDesktopConfirmation();
+        orderMobileConfirmation();
+        renderOrderBasket();
+        renderRWDOrderBasket();
+        dishCounter();
+    }
+}
+
+function resetOrderText(){
     const btnRef = document.getElementById("order-btn");
     btnRef.innerHTML = "Das hat geklappt!";
-
-    showSubtotalSum();
-    orderDesktopConfirmation();
-    orderMobileConfirmation();
-    renderOrderBasket();
-    renderRWDOrderBasket();
-    dishCounter();
 }
 
 function orderDesktopConfirmation() {
@@ -131,8 +150,7 @@ function orderDesktopConfirmation() {
     const btnRef = document.getElementById("order-btn");
 
     confirmRef.classList.remove("d-none");
-    confirmRef.innerHTML =
-        "Deine Testbestellung war erfolgreich. Thanks for the money, honey 💸!";
+    confirmRef.innerHTML = "Deine Testbestellung war erfolgreich. Thanks for the money, honey 💸!";
 
     setTimeout(() => { // asynchrone Funktion, läuft separat neben anderen Funktionen
         confirmRef.classList.add("d-none");
@@ -145,8 +163,7 @@ function orderMobileConfirmation() {
     const btnRef = document.getElementById("rwd-order-btn");
 
     confirmRef.classList.remove("d-none");
-    confirmRef.innerHTML =
-        "Deine Testbestellung war erfolgreich. Thanks for the money, honey 💸!";
+    confirmRef.innerHTML = "Deine Testbestellung war erfolgreich. Thanks for the money, honey 💸!";
 
     setTimeout(() => { // asynchrone Funktion, läuft separat neben anderen Funktionen
         confirmRef.classList.add("d-none");
